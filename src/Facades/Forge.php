@@ -117,6 +117,8 @@ use Laravel\Forge\ForgeManager;
  * @method static void installGitRepositoryOnSite(int $serverId, int $siteId, array $data, bool $wait = true)
  * @method static void updateSiteGitRepository(int $serverId, int $siteId, array $data)
  * @method static void destroySiteGitRepository(int $serverId, int $siteId, bool $wait = true)
+ * @method static array createSiteDeployKey(int $serverId, int $siteId)
+ * @method static void destroySiteDeployKey(mixed $serverId, mixed $siteId)
  * @method static string siteDeploymentScript(int $serverId, int $siteId)
  * @method static void updateSiteDeploymentScript(int $serverId, int $siteId, string $content, bool $autoSource = false)
  * @method static void enableQuickDeploy(int $serverId, int $siteId)

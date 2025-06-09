@@ -260,6 +260,26 @@ class Site extends Resource
     }
 
     /**
+     * Create a new deploy key on the site.
+     *
+     * @return array
+     */
+    public function createDeployKey()
+    {
+        return $this->forge->createSiteDeployKey($this->serverId, $this->id);
+    }
+
+    /**
+     * Destroy the deploy key on the site.
+     *
+     * @return void
+     */
+    public function destroyDeployKey()
+    {
+        $this->forge->destroySiteDeployKey($this->serverId, $this->id);
+    }
+
+    /**
      * Get the content of the site's deployment script.
      *
      * @return string
