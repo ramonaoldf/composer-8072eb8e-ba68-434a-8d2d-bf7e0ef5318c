@@ -230,8 +230,8 @@ trait ManagesSites
     /**
      * Destroy the deploy key on the site.
      *
-     * @param mixed $serverId
-     * @param mixed $siteId
+     * @param  mixed  $serverId
+     * @param  mixed  $siteId
      * @return void
      */
     public function destroySiteDeployKey($serverId, $siteId)

@@ -40,6 +40,13 @@ class Daemon extends Resource
     public $status;
 
     /**
+     * The directory where the command is executed.
+     *
+     * @var string
+     */
+    public $directory;
+
+    /**
      * The date/time the daemon was created.
      *
      * @var string
