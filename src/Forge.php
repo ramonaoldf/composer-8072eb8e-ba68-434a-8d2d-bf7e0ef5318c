@@ -99,6 +99,7 @@ class Forge
                 'Authorization' => 'Bearer '.$this->apiKey,
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
+                'User-Agent' => 'Laravel Forge PHP/3.0',
             ],
         ]);
 
