@@ -78,6 +78,7 @@ $forge->server($serverId);
 $forge->createServer(array $data);
 $forge->updateServer($serverId, array $data);
 $forge->deleteServer($serverId);
+$forge->rebootServer($serverId);
 
 // Server access
 $forge->revokeAccessToServer($serverId);
@@ -90,6 +91,7 @@ On a Server instance you may also call:
 ```php
 $server->update(array $data);
 $server->delete();
+$server->reboot();
 $server->revokeAccess();
 $server->reconnect();
 $server->reactivate();
@@ -329,7 +331,7 @@ $forge->recipe($recipeId);
 $forge->createRecipe(array $data);
 $forge->updateRecipe($recipeId, array $data);
 $forge->deleteRecipe($recipeId);
-$forge->runRecipe($recipeId);
+$forge->runRecipe($recipeId, array $data);
 ```
 
 On a Recipe Instance you may also call:
@@ -338,5 +340,5 @@ On a Recipe Instance you may also call:
 
 $recipe->update(array $data);
 $recipe->delete();
-$recipe->run();
+$recipe->run(array $data);
 ```
