@@ -2,7 +2,7 @@
 
 namespace Laravel\Forge\Resources;
 
-class RedirectRule extends Resource
+class SecurityRule extends Resource
 {
     /**
      * The id of the rule.
@@ -26,32 +26,25 @@ class RedirectRule extends Resource
     public $siteId;
 
     /**
-     * The from route of the rule.
+     * The name of the rule.
      *
      * @var string
      */
-    public $from;
+    public $name;
 
     /**
-     * The to route of the rule.
+     * The path to route of the rule.
      *
      * @var string
      */
-    public $to;
+    public $path;
 
     /**
-     * The type of the redirect rule.
+     * The credentials of the redirect rule.
      *
      * @var string
      */
-    public $type;
-
-    /**
-     * The status of the redirect rule.
-     *
-     * @var string
-     */
-    public $status;
+    public $credentials;
 
     /**
      * The date/time the rule was created.
@@ -67,6 +60,6 @@ class RedirectRule extends Resource
      */
     public function delete()
     {
-        // $this->forge->deleteFirewallRule($this->serverId, $this->id);
+        $this->forge->deleteSecurityRule($this->serverId, $this->siteId, $this->id);
     }
 }

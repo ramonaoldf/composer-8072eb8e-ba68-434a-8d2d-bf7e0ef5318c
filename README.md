@@ -1,33 +1,63 @@
-# Forge PHP SDK
+# Laravel Forge SDK
+
+<a href="https://github.com/laravel/forge-sdk/actions"><img src="https://github.com/laravel/forge-sdk/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/forge-sdk"><img src="https://poser.pugx.org/laravel/forge-sdk/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/forge-sdk"><img src="https://poser.pugx.org/laravel/forge-sdk/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/forge-sdk"><img src="https://poser.pugx.org/laravel/forge-sdk/license.svg" alt="License"></a>
+
+The [Laravel Forge](https://forge.laravel.com) SDK provides an expressive interface for interacting with Forge's API and managing Laravel Forge servers.
+
+- [Installation](#installation)
+- [Upgrading](#upgrading)
+- [Usage](#usage)
+    - [Authenticated User](#authenticated-user)
+    - [Managing Servers](#managing-servers)
+    - [Server SSH Keys](#server-ssh-keys)
+    - [Server Scheduled Jobs](#server-scheduled-jobs)
+    - [Server Events](#server-events)
+    - [Managing Services](#managing-services)
+    - [Server Daemons](#server-daemons)
+    - [Server Firewall Rules](#server-firewall-rules)
+    - [Managing Sites](#managing-sites)
+    - [Site Workers](#site-workers)
+    - [Security Rules](#security-rules)
+    - [Site Webhooks](#site-webhooks)
+    - [Site SSL Certificates](#site-ssl-certificates)
+    - [Managing Databases](#managing-databases)
+    - [Managing Recipes](#managing-recipes)
+    - [Managing Backups](#backups)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [Security Vulnerabilities](#security-vulnerabilities)
+- [License](#license)
+
+## Installation
 
 To install the SDK in your project you need to require the package via composer:
 
 ```bash
-composer require themsaid/forge-sdk
+composer require laravel/forge-sdk
 ```
 
-Then use Composer's autoload:
+## Upgrading
 
-```php
-require __DIR__.'/../vendor/autoload.php';
-```
-
-And finally create an instance of the SDK:
-
-```php
-$forge = new Themsaid\Forge\Forge(TOKEN_HERE);
-```
+When upgrading to a new major version of Forge SDK, it's important that you carefully review [the upgrade guide](https://github.com/laravel/forge-sdk/blob/master/UPGRADE.md).
 
 ## Usage
 
-Using the forge instance you may perform multiple actions as well as retrieve the different resources Forge's API provides:
+You can create an instance of the SDK like so:
+
+```php
+$forge = new Laravel\Forge\Forge(TOKEN_HERE);
+```
+
+Using the `Forge` instance you may perform multiple actions as well as retrieve the different resources Forge's API provides:
 
 ```php
 $servers = $forge->servers();
 ```
 
-This will give you an array of servers that you have access to, each server is represented by an instance of `Themsaid\Forge\Resources\Server`, this instance has multiple public
-properties like `$name`, `$id`, `$size`, `$region`, and others.
+This will give you an array of servers that you have access to, where each server is represented by an instance of `Laravel\Forge\Resources\Server`, this instance has multiple public properties like `$name`, `$id`, `$size`, `$region`, and others.
 
 You may also retrieve a single server using:
 
@@ -52,8 +82,7 @@ $server = $forge->createServer([
 These parameters will be used in the POST request sent to Forge servers, you can find more information about the parameters needed for each action on
 [Forge's official API documentation](https://forge.laravel.com/api-documentation).
 
-Notice that this request for example will only start the server creation process, your server might need a few minutes before it completes provisioning, you'll need to check
-the Server's `$isReady` property to know if it's ready or not yet.
+Notice that this request for example will only start the server creation process, your server might need a few minutes before it completes provisioning, you'll need to check the server's `$isReady` property to know if it's ready or not yet.
 
 Some SDK methods however waits for the action to complete on Forge's end, we do this by periodically contacting Forge servers and checking if our action has completed, for example:
 
@@ -61,8 +90,7 @@ Some SDK methods however waits for the action to complete on Forge's end, we do 
 $forge->createSite(SERVER_ID, [SITE_PARAMETERS]);
 ```
 
-This method will ping Forge servers every 5 seconds and see if the newly created Site's status is `installed` and only return when it's so, in case the waiting exceeded 30 seconds
-a `Themsaid\Forge\Exceptions\TimeoutException` will be thrown.
+This method will ping Forge servers every 5 seconds and see if the newly created Site's status is `installed` and only return when it's so, in case the waiting exceeded 30 seconds a `Laravel\Forge\Exceptions\TimeoutException` will be thrown.
 
 You can easily stop this behaviour be setting the `$wait` argument to false:
 
@@ -76,13 +104,13 @@ You can also set the desired timeout value:
 $forge->setTimeout(120)->createSite(SERVER_ID, [SITE_PARAMETERS]);
 ```
 
-## Authenticated User
+### Authenticated User
 
 ```php
 $forge->user();
 ```
 
-## Managing Servers
+### Managing Servers
 
 ```php
 $forge->servers();
@@ -98,7 +126,7 @@ $forge->reconnectToServer($serverId);
 $forge->reactivateToServer($serverId);
 ```
 
-On a Server instance you may also call:
+On a `Server` instance you may also call:
 
 ```php
 $server->update(array $data);
@@ -119,25 +147,27 @@ $server->installPapertrail(array $data);
 $server->removePapertrail();
 $server->enableOPCache();
 $server->disableOPCache();
-$server->upgradePHP();
+$server->phpVersions();
+$server->installPHP($version);
+$server->updatePHP($version);
 ```
 
-## Server SSH Keys
+### Server SSH Keys
 
 ```php
 $forge->keys($serverId);
-$forge->SSHKey($serverId, $keyId);
+$forge->sshKey($serverId, $keyId);
 $forge->createSSHKey($serverId, array $data, $wait = true);
 $forge->deleteSSHKey($serverId, $keyId);
 ```
 
-On a SSHKey Instance you may also call:
+On a `SSHKey` instance you may also call:
 
 ```php
 $sshKey->delete();
 ```
 
-## Server Scheduled Jobs
+### Server Scheduled Jobs
 
 ```php
 $forge->jobs($serverId);
@@ -146,20 +176,20 @@ $forge->createJob($serverId, array $data, $wait = true);
 $forge->deleteJob($serverId, $jobId);
 ```
 
-On a Job Instance you may also call:
+On a `Job` instance you may also call:
 
 ```php
 $job->delete();
 ```
 
-## Server Events
+### Server Events
 
 ```php
 $forge->events();
 $forge->events($serverId);
 ```
 
-## Managing Services
+### Managing Services
 
 ```php
 // MySQL
@@ -187,12 +217,9 @@ $forge->removePapertrail($serverId);
 // OPCache
 $forge->enableOPCache($serverId);
 $forge->disableOPCache($serverId);
-
-// PHP
-$forge->upgradePHP($serverId);
 ```
 
-## Server Daemons
+### Server Daemons
 
 ```php
 $forge->daemons($serverId);
@@ -202,14 +229,14 @@ $forge->restartDaemon($serverId, $daemonId, $wait = true);
 $forge->deleteDaemon($serverId, $daemonId);
 ```
 
-On a Daemon Instance you may also call:
+On a `Daemon` instance you may also call:
 
 ```php
 $daemon->restart($wait = true);
 $daemon->delete();
 ```
 
-## Server Firewall Rules
+### Server Firewall Rules
 
 ```php
 $forge->firewallRules($serverId);
@@ -218,13 +245,13 @@ $forge->createFirewallRule($serverId, array $data, $wait = true);
 $forge->deleteFirewallRule($serverId, $ruleId);
 ```
 
-On a FirewallRule Instance you may also call:
+On a `FirewallRule` instance you may also call:
 
 ```php
 $rule->delete();
 ```
 
-## Managing Sites
+### Managing Sites
 
 ```php
 $forge->sites($serverId);
@@ -258,11 +285,15 @@ $forge->disableHipchatNotifications($serverId, $siteId);
 $forge->installWordPress($serverId, $siteId, array $data);
 $forge->removeWordPress($serverId, $siteId);
 
+// Installing phpMyAdmin
+$forge->installPhpMyAdmin($serverId, $siteId, array $data);
+$forge->removePhpMyAdmin($serverId, $siteId);
+
 // Updating Node balancing Configuration
 $forge->updateNodeBalancingConfiguration($serverId, $siteId, array $data);
 ```
 
-On a Site Instance you may also call:
+On a `Site` instance you may also call:
 
 ```php
 $site->refreshToken();
@@ -275,14 +306,17 @@ $site->updateDeploymentScript($content);
 $site->enableQuickDeploy();
 $site->disableQuickDeploy();
 $site->deploySite($wait = false);
+$site->resetDeploymentState();
+$site->siteDeploymentLog();
 $site->enableHipchatNotifications(array $data);
 $site->disableHipchatNotifications();
 $site->installWordPress($data);
 $site->removeWordPress();
+$site->installPhpMyAdmin($data);
+$site->removePhpMyAdmin();
 ```
 
-
-## Site Workers
+### Site Workers
 
 ```php
 $forge->workers($serverId, $siteId);
@@ -292,14 +326,29 @@ $forge->deleteWorker($serverId, $siteId, $workerId);
 $forge->restartWorker($serverId, $siteId, $workerId, $wait = true);
 ```
 
-On a Worker Instance you may also call:
+On a `Worker` instance you may also call:
 
 ```php
 $worker->delete();
 $worker->restart($wait = true);
 ```
 
-## Site Webhooks
+### Security Rules
+
+```php
+$forge->securityRules($serverId, $siteId);
+$forge->securityRule($serverId, $siteId, $ruleId);
+$forge->createSecurityRule($serverId, $siteId, array $data);
+$forge->deleteSecurityRule($serverId, $siteId, $ruleId);
+```
+
+On a `SecurityRule` instance you may also call:
+
+```php
+$securityRule->delete();
+```
+
+### Site Webhooks
 
 ```php
 $forge->webhooks($serverId, $siteId);
@@ -308,13 +357,13 @@ $forge->createWebhook($serverId, $siteId, array $data);
 $forge->deleteWebhook($serverId, $siteId, $webhookId);
 ```
 
-On a Webhook Instance you may also call:
+On a `Webhook` instance you may also call:
 
 ```php
 $webhook->delete();
 ```
 
-## Site SSL Certificates
+### Site SSL Certificates
 
 ```php
 $forge->certificates($serverId, $siteId);
@@ -327,7 +376,7 @@ $forge->activateCertificate($serverId, $siteId, $certificateId, $wait = true);
 $forge->obtainLetsEncryptCertificate($serverId, $siteId, $data, $wait = true);
 ```
 
-On a Certificate Instance you may also call:
+On a `Certificate` instance you may also call:
 
 ```php
 $certificate->delete();
@@ -336,38 +385,38 @@ $certificate->install($wait = true);
 $certificate->activate($wait = true);
 ```
 
-## Managing MySQL
+### Managing Databases
 
 ```php
-$forge->mysqlDatabases($serverId);
-$forge->mysqlDatabase($serverId, $databaseId);
-$forge->createMysqlDatabase($serverId, array $data, $wait = true);
-$forge->updateMysqlDatabase($serverId, $databaseId, array $data);
-$forge->deleteMysqlDatabase($serverId, $databaseId);
+$forge->databases($serverId);
+$forge->database($serverId, $databaseId);
+$forge->createDatabase($serverId, array $data, $wait = true);
+$forge->updateDatabase($serverId, $databaseId, array $data);
+$forge->deleteDatabase($serverId, $databaseId);
 
 // Users
-$forge->mysqlUsers($serverId);
-$forge->mysqlUser($serverId, $userId);
-$forge->createMysqlUser($serverId, array $data, $wait = true);
-$forge->updateMysqlUser($serverId, $userId, array $data);
-$forge->deleteMysqlUser($serverId, $userId);
+$forge->databaseUsers($serverId);
+$forge->databaseUser($serverId, $userId);
+$forge->createDatabaseUser($serverId, array $data, $wait = true);
+$forge->updateDatabaseUser($serverId, $userId, array $data);
+$forge->deleteDatabaseUser($serverId, $userId);
 ```
 
-On a MysqlDatabase Instance you may also call:
+On a `Database` instance you may also call:
 
 ```php
 $database->update(array $data);
 $database->delete();
 ```
 
-On a MysqlUser Instance you may also call:
+On a `DatabaseUser` instance you may also call:
 
 ```php
 $databaseUser->update(array $data);
 $databaseUser->delete();
 ```
 
-## Managing Recipes
+### Managing Recipes
 
 ```php
 $forge->recipes();
@@ -378,16 +427,15 @@ $forge->deleteRecipe($recipeId);
 $forge->runRecipe($recipeId, array $data);
 ```
 
-On a Recipe Instance you may also call:
+On a `Recipe` instance you may also call:
 
 ```php
-
 $recipe->update(array $data);
 $recipe->delete();
 $recipe->run(array $data);
 ```
 
-## Managing Backups
+### Managing Backups
 
 ```php
 $forge->backupConfigurations($serverId);
@@ -396,31 +444,36 @@ $forge->backupConfiguration($serverId, $backupConfigurationId);
 $forge->deleteBackupConfiguration($serverId, $backupConfigurationId);
 $forge->restoreBackup($serverId, $backupConfigurationId, $backupId);
 $forge->deleteBackup($serverId, $backupConfigurationId, $backupId);
-
 ```
 
-On a BackupConfiguration Instance you may also call:
+On a `BackupConfiguration` instance you may also call:
 
 ```php
-
 $extendedConfig = $backupConfig->get(); // Load the databases also
 $backupConfig->delete();
 $backupConfig->restoreBackup($backupId);
 $backupConfig->deleteBackup($backupId);
 ```
 
-On a Backup Instance you may also call:
+On a `Backup` instance you may also call:
 
 ```php
-
 $backupConfig->delete();
 $backupConfig->restore();
 ```
 
-## Testing
+## Contributing
 
-Run the tests with:
+Thank you for considering contributing to Forge SDK! You can read the contribution guide [here](.github/CONTRIBUTING.md).
 
-``` bash
-vendor/bin/phpunit
-```
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+Please review [our security policy](https://github.com/laravel/forge-sdk/security/policy) on how to report security vulnerabilities.
+
+## License
+
+Laravel Forge SDK is open-sourced software licensed under the [MIT license](LICENSE.md).

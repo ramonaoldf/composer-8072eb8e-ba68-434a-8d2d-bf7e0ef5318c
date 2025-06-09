@@ -1,20 +1,20 @@
 <?php
 
-namespace Themsaid\Forge\Resources;
+namespace Laravel\Forge\Resources;
 
-class MysqlUser extends Resource
+class DatabaseUser extends Resource
 {
     /**
      * The id of the database user.
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
      * The id of the server.
      *
-     * @var integer
+     * @var int
      */
     public $serverId;
 
@@ -40,14 +40,14 @@ class MysqlUser extends Resource
     public $createdAt;
 
     /**
-     * Update the given MySQL User.
+     * Update the given Database User.
      *
-     * @param  array $data
-     * @return MysqlUser
+     * @param  array  $data
+     * @return \Laravel\Forge\Resources\DatabaseUser
      */
     public function update(array $data)
     {
-        return $this->forge->updateMysqlUser($this->serverId, $this->id, $data);
+        return $this->forge->updateDatabaseUser($this->serverId, $this->id, $data);
     }
 
     /**
@@ -57,6 +57,6 @@ class MysqlUser extends Resource
      */
     public function delete()
     {
-        return $this->forge->deleteMysqlUser($this->serverId, $this->id);
+        $this->forge->deleteDatabaseUser($this->serverId, $this->id);
     }
 }

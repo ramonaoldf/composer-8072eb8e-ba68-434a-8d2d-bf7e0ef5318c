@@ -1,16 +1,16 @@
 <?php
 
-namespace Themsaid\Forge\Actions;
+namespace Laravel\Forge\Actions;
 
-use Themsaid\Forge\Resources\Site;
+use Laravel\Forge\Resources\Site;
 
 trait ManagesSites
 {
     /**
      * Get the collection of sites.
      *
-     * @param  integer $serverId
-     * @return Site[]
+     * @param  int  $serverId
+     * @return \Laravel\Forge\Resources\Site[]
      */
     public function sites($serverId)
     {
@@ -24,9 +24,9 @@ trait ManagesSites
     /**
      * Get a site instance.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @return Site
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @return \Laravel\Forge\Resources\Site
      */
     public function site($serverId, $siteId)
     {
@@ -38,10 +38,10 @@ trait ManagesSites
     /**
      * Create a new site.
      *
-     * @param  integer $serverId
-     * @param  array $data
-     * @param  boolean $wait
-     * @return Site
+     * @param  int  $serverId
+     * @param  array  $data
+     * @param  bool  $wait
+     * @return \Laravel\Forge\Resources\Site
      */
     public function createSite($serverId, array $data, $wait = true)
     {
@@ -61,10 +61,10 @@ trait ManagesSites
     /**
      * Update the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
-     * @return Site
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
+     * @return \Laravel\Forge\Resources\Site
      */
     public function updateSite($serverId, $siteId, array $data)
     {
@@ -77,8 +77,8 @@ trait ManagesSites
     /**
      * Refresh the site token.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function refreshSiteToken($serverId, $siteId)
@@ -89,8 +89,8 @@ trait ManagesSites
     /**
      * Delete the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function deleteSite($serverId, $siteId)
@@ -101,8 +101,8 @@ trait ManagesSites
     /**
      * Get the content of the site's Nginx configuration file.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return string
      */
     public function siteNginxFile($serverId, $siteId)
@@ -113,9 +113,9 @@ trait ManagesSites
     /**
      * Update the content of the site's Nginx configuration file.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  string $content
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  string  $content
      * @return void
      */
     public function updateSiteNginxFile($serverId, $siteId, $content)
@@ -126,8 +126,8 @@ trait ManagesSites
     /**
      * Get the content of the site's Environment file.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return string
      */
     public function siteEnvironmentFile($serverId, $siteId)
@@ -138,9 +138,9 @@ trait ManagesSites
     /**
      * Update the content of the site's Environment file.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  string $content
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  string  $content
      * @return void
      */
     public function updateSiteEnvironmentFile($serverId, $siteId, $content)
@@ -151,10 +151,10 @@ trait ManagesSites
     /**
      * Install a git repository on the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
-     * @param  boolean $wait
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
+     * @param  bool  $wait
      * @return Site
      */
     public function installGitRepositoryOnSite($serverId, $siteId, array $data, $wait = true)
@@ -164,6 +164,7 @@ trait ManagesSites
         if ($wait) {
             return $this->retry($this->getTimeout(), function () use ($serverId, $siteId) {
                 $site = $this->site($serverId, $siteId);
+
                 return $site->repositoryStatus === 'installed' ? $site : null;
             });
         }
@@ -174,9 +175,9 @@ trait ManagesSites
     /**
      * Update the site's git repository parameters.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
      * @return void
      */
     public function updateSiteGitRepository($serverId, $siteId, array $data)
@@ -187,9 +188,9 @@ trait ManagesSites
     /**
      * Destroy the git-based project installed on the site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  boolean $wait
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  bool  $wait
      * @return void
      */
     public function destroySiteGitRepository($serverId, $siteId, $wait = true)
@@ -206,8 +207,8 @@ trait ManagesSites
     /**
      * Get the content of the site's deployment script.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return string
      */
     public function siteDeploymentScript($serverId, $siteId)
@@ -218,9 +219,9 @@ trait ManagesSites
     /**
      * Update the content of the site's deployment script.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  string $content
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  string  $content
      * @return void
      */
     public function updateSiteDeploymentScript($serverId, $siteId, $content)
@@ -231,8 +232,8 @@ trait ManagesSites
     /**
      * Enable "Quick Deploy" for the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function enableQuickDeploy($serverId, $siteId)
@@ -243,8 +244,8 @@ trait ManagesSites
     /**
      * Disable "Quick Deploy" for the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function disableQuickDeploy($serverId, $siteId)
@@ -255,10 +256,10 @@ trait ManagesSites
     /**
      * Deploy the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  boolean $wait
-     * @return void
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  bool  $wait
+     * @return \Laravel\Forge\Resources\Site
      */
     public function deploySite($serverId, $siteId, $wait = true)
     {
@@ -267,7 +268,8 @@ trait ManagesSites
         if ($wait) {
             return $this->retry($this->getTimeout(), function () use ($serverId, $siteId) {
                 $site = $this->site($serverId, $siteId);
-                return !is_null($site->deploymentStatus) ? $site : null;
+
+                return ! is_null($site->deploymentStatus) ? $site : null;
             });
         }
 
@@ -277,8 +279,8 @@ trait ManagesSites
     /**
      * Reset the deployment state of the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function resetDeploymentState($serverId, $siteId)
@@ -289,8 +291,8 @@ trait ManagesSites
     /**
      * Get the last deployment log of the site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return string
      */
     public function siteDeploymentLog($serverId, $siteId)
@@ -301,9 +303,9 @@ trait ManagesSites
     /**
      * Enable Hipchat Notifications for the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
      * @return void
      */
     public function enableHipchatNotifications($serverId, $siteId, array $data)
@@ -314,8 +316,8 @@ trait ManagesSites
     /**
      * Disable Hipchat Notifications for the given site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function disableHipchatNotifications($serverId, $siteId)
@@ -326,9 +328,9 @@ trait ManagesSites
     /**
      * Install a new WordPress project.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
      * @return void
      */
     public function installWordPress($serverId, $siteId, array $data)
@@ -339,8 +341,8 @@ trait ManagesSites
     /**
      * Remove the WordPress project installed on the site.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
+     * @param  int  $serverId
+     * @param  int  $siteId
      * @return void
      */
     public function removeWordPress($serverId, $siteId)
@@ -349,11 +351,36 @@ trait ManagesSites
     }
 
     /**
+     * Install a new phpMyAdmin project.
+     *
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
+     * @return void
+     */
+    public function installPhpMyAdmin($serverId, $siteId, array $data)
+    {
+        $this->post("servers/$serverId/sites/$siteId/phpmyadmin", $data);
+    }
+
+    /**
+     * Remove phpMyAdmin and revert the site back to a default state.
+     *
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @return void
+     */
+    public function removePhpMyAdmin($serverId, $siteId)
+    {
+        $this->delete("servers/$serverId/sites/$siteId/phpmyadmin");
+    }
+
+    /**
      * Update the given site's balanced nodes.
      *
-     * @param  integer $serverId
-     * @param  integer $siteId
-     * @param  array $data
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @param  array  $data
      * @return void
      */
     public function updateNodeBalancingConfiguration($serverId, $siteId, array $data)
