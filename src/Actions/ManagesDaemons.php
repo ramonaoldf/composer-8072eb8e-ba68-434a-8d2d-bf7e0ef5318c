@@ -39,7 +39,6 @@ trait ManagesDaemons
      * Create a new daemon.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Daemon
      */

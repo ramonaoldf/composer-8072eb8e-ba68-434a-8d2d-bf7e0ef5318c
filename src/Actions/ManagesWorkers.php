@@ -43,7 +43,6 @@ trait ManagesWorkers
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Worker
      */

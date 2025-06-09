@@ -39,7 +39,6 @@ trait ManagesSites
      * Create a new site.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Site
      */
@@ -63,7 +62,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Site
      */
     public function updateSite($serverId, $siteId, array $data)
@@ -79,7 +77,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $aliases
      * @return \Laravel\Forge\Resources\Site
      */
     public function addSiteAliases($serverId, $siteId, array $aliases)
@@ -169,7 +166,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @param  bool  $wait
      * @return Site
      */
@@ -193,7 +189,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return void
      */
     public function updateSiteGitRepository($serverId, $siteId, array $data)
@@ -363,7 +358,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return void
      */
     public function enableHipchatNotifications($serverId, $siteId, array $data)
@@ -388,7 +382,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return void
      */
     public function installWordPress($serverId, $siteId, array $data)
@@ -413,7 +406,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return void
      */
     public function installPhpMyAdmin($serverId, $siteId, array $data)
@@ -451,7 +443,6 @@ trait ManagesSites
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return void
      */
     public function updateNodeBalancingConfiguration($serverId, $siteId, array $data)

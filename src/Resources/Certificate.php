@@ -104,7 +104,6 @@ class Certificate extends Resource
     /**
      * Install the given certificate for the site.
      *
-     * @param  array  $data
      * @param  bool  $wait
      * @return void
      */

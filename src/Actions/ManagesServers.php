@@ -34,7 +34,6 @@ trait ManagesServers
     /**
      * Create a new server. API recommends a 2 minute delay between checks.
      *
-     * @param  array  $data
      * @param  bool  $wait
      * @param  int  $timeout
      * @return \Laravel\Forge\Resources\Server
@@ -70,7 +69,6 @@ trait ManagesServers
      * Update the given server.
      *
      * @param  string  $serverId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Server
      */
     public function updateServer($serverId, array $data)
@@ -215,7 +213,6 @@ trait ManagesServers
      * Install Blackfire on the server.
      *
      * @param  string  $serverId
-     * @param  array  $data
      * @return void
      */
     public function installBlackfire($serverId, array $data)
@@ -238,7 +235,6 @@ trait ManagesServers
      * Install Papertrail on the server.
      *
      * @param  string  $serverId
-     * @param  array  $data
      * @return void
      */
     public function installPapertrail($serverId, array $data)

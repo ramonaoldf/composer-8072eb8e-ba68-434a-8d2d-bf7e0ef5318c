@@ -43,7 +43,6 @@ trait ManagesWebhooks
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Webhook
      */
     public function createWebhook($serverId, $siteId, array $data)

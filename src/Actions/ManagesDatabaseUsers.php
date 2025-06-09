@@ -39,7 +39,6 @@ trait ManagesDatabaseUsers
      * Create a new Database User.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\DatabaseUser
      */
@@ -63,7 +62,6 @@ trait ManagesDatabaseUsers
      *
      * @param  int  $serverId
      * @param  int  $userId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\DatabaseUser
      */
     public function updateDatabaseUser($serverId, $userId, array $data)

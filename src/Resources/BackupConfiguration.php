@@ -81,11 +81,9 @@ class BackupConfiguration extends Resource
     /**
      * Create a new BackupConfiguration instance.
      *
-     * @param  array  $attributes
-     * @param  \Laravel\Forge\Forge|null  $forge
      * @return void
      */
-    public function __construct(array $attributes, Forge $forge = null)
+    public function __construct(array $attributes, ?Forge $forge = null)
     {
         parent::__construct($attributes, $forge);
 
@@ -105,7 +103,6 @@ class BackupConfiguration extends Resource
     /**
      * Update the given configuration.
      *
-     * @param  array  $data
      * @return void
      */
     public function update(array $data)

@@ -43,7 +43,6 @@ trait ManagesCertificates
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Certificate
      */
@@ -94,7 +93,6 @@ trait ManagesCertificates
      * @param  int  $serverId
      * @param  int  $siteId
      * @param  int  $certificateId
-     * @param  array  $data
      * @param  bool  $wait
      * @return void
      */
@@ -138,7 +136,6 @@ trait ManagesCertificates
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Certificate
      */

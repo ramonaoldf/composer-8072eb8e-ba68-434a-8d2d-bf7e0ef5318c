@@ -11,7 +11,6 @@ trait ManagesSiteCommands
      *
      * @param  int  $serverId
      * @param  int  $siteId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\SiteCommand
      */
     public function executeSiteCommand($serverId, $siteId, array $data)

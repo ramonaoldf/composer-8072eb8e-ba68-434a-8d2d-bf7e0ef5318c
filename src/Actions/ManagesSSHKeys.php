@@ -39,7 +39,6 @@ trait ManagesSSHKeys
      * Create a new SSH key.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\SSHKey
      */

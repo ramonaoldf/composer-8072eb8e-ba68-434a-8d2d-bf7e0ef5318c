@@ -42,7 +42,6 @@ class Recipe extends Resource
     /**
      * Update the given recipe.
      *
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Recipe
      */
     public function update(array $data)
@@ -63,7 +62,6 @@ class Recipe extends Resource
     /**
      * Run the given recipe.
      *
-     * @param  array  $data
      * @return void
      */
     public function run(array $data)
