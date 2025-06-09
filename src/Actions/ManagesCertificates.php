@@ -131,4 +131,28 @@ trait ManagesCertificates
             });
         }
     }
+
+    /**
+     * Add a LetsEncrypt certificate to a given site.
+     *
+     * @param  integer $serverId
+     * @param  integer $siteId
+     * @param  array $data
+     * @param  boolean $wait
+     * @return Certificate
+     */
+    public function obtainLetsEncryptCertificate($serverId, $siteId, array $data, $wait = true)
+    {
+        $certificate = $this->post("servers/$serverId/sites/$siteId/certificates/letsencrypt", $data)['certificate'];
+
+        if ($wait) {
+            return $this->retry(30, function () use ($serverId, $siteId, $certificate) {
+                $certificate = $this->certificate($serverId, $siteId, $certificate['id']);
+
+                return $certificate->status == 'installed' ? $certificate : null;
+            });
+        }
+
+        return new Certificate($certificate + ['server_id' => $serverId, 'site_id' => $siteId], $this);
+    }
 }
