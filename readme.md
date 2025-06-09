@@ -42,7 +42,7 @@ $server = $forge->createServer([
     "provider"=> "ocean2",
     "credential_id"=> 1,
     "name"=> "test-via-api",
-    "size"=> "512MB",
+    "size"=> "01",
     "database"=> "test123",
     "php_version"=> "php71",
     "region"=> "ams2"
@@ -74,6 +74,12 @@ You can also set the desired timeout value:
 
 ```php
 $forge->setTimeout(120)->createSite(SERVER_ID, [SITE_PARAMETERS]);
+```
+
+## Authenticated User
+
+```php
+$forge->user();
 ```
 
 ## Managing Servers
@@ -144,6 +150,13 @@ On a Job Instance you may also call:
 
 ```php
 $job->delete();
+```
+
+## Server Events
+
+```php
+$forge->events();
+$forge->events($serverId);
 ```
 
 ## Managing Services
@@ -286,6 +299,21 @@ $worker->delete();
 $worker->restart($wait = true);
 ```
 
+## Site Webhooks
+
+```php
+$forge->webhooks($serverId, $siteId);
+$forge->webhook($serverId, $siteId, $webhookId);
+$forge->createWebhook($serverId, $siteId, array $data);
+$forge->deleteWebhook($serverId, $siteId, $webhookId);
+```
+
+On a Webhook Instance you may also call:
+
+```php
+$webhook->delete();
+```
+
 ## Site SSL Certificates
 
 ```php
@@ -294,7 +322,7 @@ $forge->certificate($serverId, $siteId, $certificateId);
 $forge->createCertificate($serverId, $siteId, array $data, $wait = true);
 $forge->deleteCertificate($serverId, $siteId, $certificateId);
 $forge->getCertificateSigningRequest($serverId, $siteId, $certificateId);
-$forge->installCertificate($serverId, $siteId, $certificateId, $wait = true);
+$forge->installCertificate($serverId, $siteId, $certificateId, array $data, $wait = true);
 $forge->activateCertificate($serverId, $siteId, $certificateId, $wait = true);
 $forge->obtainLetsEncryptCertificate($serverId, $siteId, $data, $wait = true);
 ```
