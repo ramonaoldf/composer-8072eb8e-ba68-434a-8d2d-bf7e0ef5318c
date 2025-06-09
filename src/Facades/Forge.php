@@ -139,6 +139,7 @@ use Laravel\Forge\ForgeManager;
  * @method static void changeSitePHPVersion(int $serverId, int $siteId, string $version)
  * @method static void updateNodeBalancingConfiguration(int $serverId, int $siteId, array $data)
  * @method static string siteLog(int $serverId, int $siteId)
+ * @method static void deleteSiteLog(int $serverId, int $siteId)
  * @method static \Laravel\Forge\Resources\SSHKey[] keys(int $serverId)
  * @method static \Laravel\Forge\Resources\SSHKey sshKey(int $serverId, int $keyId)
  * @method static \Laravel\Forge\Resources\SSHKey createSSHKey(int $serverId, array $data, bool $wait = true)
