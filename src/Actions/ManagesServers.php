@@ -1,16 +1,17 @@
 <?php
 
-namespace Themsaid\Forge\Actions;
+namespace Laravel\Forge\Actions;
 
-use Themsaid\Forge\Resources\Event;
-use Themsaid\Forge\Resources\Server;
+use Laravel\Forge\Resources\Event;
+use Laravel\Forge\Resources\PHPVersion;
+use Laravel\Forge\Resources\Server;
 
 trait ManagesServers
 {
     /**
      * Get the collection of servers.
      *
-     * @return Server[]
+     * @return \Laravel\Forge\Resources\Server[]
      */
     public function servers()
     {
@@ -22,8 +23,8 @@ trait ManagesServers
     /**
      * Get a server instance.
      *
-     * @param  string $serverId
-     * @return Server
+     * @param  string  $serverId
+     * @return \Laravel\Forge\Resources\Server
      */
     public function server($serverId)
     {
@@ -33,10 +34,10 @@ trait ManagesServers
     /**
      * Create a new server. API recommends a 2 minute delay between checks.
      *
-     * @param  array $data
-     * @param  boolean $wait
-     * @param  integer $timeout
-     * @return Server
+     * @param  array  $data
+     * @param  bool  $wait
+     * @param  int  $timeout
+     * @return \Laravel\Forge\Resources\Server
      */
     public function createServer(array $data, $wait = false, $timeout = 900)
     {
@@ -50,6 +51,7 @@ trait ManagesServers
         if ($wait) {
             return $this->retry($timeout, function () use ($server) {
                 $server = $this->server($server['id']);
+
                 return $server->isReady ? $server : null;
             }, 120);
         }
@@ -60,9 +62,9 @@ trait ManagesServers
     /**
      * Update the given server.
      *
-     * @param  string $serverId
-     * @param  array $data
-     * @return Server
+     * @param  string  $serverId
+     * @param  array  $data
+     * @return \Laravel\Forge\Resources\Server
      */
     public function updateServer($serverId, array $data)
     {
@@ -72,7 +74,7 @@ trait ManagesServers
     /**
      * Delete the given server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function deleteServer($serverId)
@@ -83,7 +85,7 @@ trait ManagesServers
     /**
      * Revoke forge access to the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function revokeAccessToServer($serverId)
@@ -94,7 +96,7 @@ trait ManagesServers
     /**
      * Reconnect the server to Forge with a new key.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function reconnectToServer($serverId)
@@ -105,7 +107,7 @@ trait ManagesServers
     /**
      * Reactivate a revoked server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function reactivateToServer($serverId)
@@ -116,7 +118,7 @@ trait ManagesServers
     /**
      * Reboot the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function rebootServer($serverId)
@@ -127,7 +129,7 @@ trait ManagesServers
     /**
      * Reboot MySQL on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function rebootMysql($serverId)
@@ -138,7 +140,7 @@ trait ManagesServers
     /**
      * Stop MySQL on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function stopMysql($serverId)
@@ -149,7 +151,7 @@ trait ManagesServers
     /**
      * Reboot Postgres on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function rebootPostgres($serverId)
@@ -160,7 +162,7 @@ trait ManagesServers
     /**
      * Stop Postgres on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function stopPostgres($serverId)
@@ -171,7 +173,7 @@ trait ManagesServers
     /**
      * Reboot Nginx on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function rebootNginx($serverId)
@@ -182,7 +184,7 @@ trait ManagesServers
     /**
      * Stop Nginx on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function stopNginx($serverId)
@@ -193,19 +195,20 @@ trait ManagesServers
     /**
      * Reboot PHP on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
+     * @param  array  $data
      * @return void
      */
-    public function rebootPHP($serverId)
+    public function rebootPHP($serverId, $data)
     {
-        $this->post("servers/$serverId/php/reboot");
+        $this->post("servers/$serverId/php/reboot", $data);
     }
 
     /**
      * Install Blackfire on the server.
      *
-     * @param  string $serverId
-     * @param  array $data
+     * @param  string  $serverId
+     * @param  array  $data
      * @return void
      */
     public function installBlackfire($serverId, array $data)
@@ -216,7 +219,7 @@ trait ManagesServers
     /**
      * Remove Blackfire from the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function removeBlackfire($serverId)
@@ -227,8 +230,8 @@ trait ManagesServers
     /**
      * Install Papertrail on the server.
      *
-     * @param  string $serverId
-     * @param  array $data
+     * @param  string  $serverId
+     * @param  array  $data
      * @return void
      */
     public function installPapertrail($serverId, array $data)
@@ -239,8 +242,7 @@ trait ManagesServers
     /**
      * Remove Papertrail from the server.
      *
-     * @param  string $serverId
-     * @param  array $data
+     * @param  string  $serverId
      * @return void
      */
     public function removePapertrail($serverId)
@@ -251,7 +253,7 @@ trait ManagesServers
     /**
      * Enable OPCache on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function enableOPCache($serverId)
@@ -262,7 +264,7 @@ trait ManagesServers
     /**
      * Disable OPCache on the server.
      *
-     * @param  string $serverId
+     * @param  string  $serverId
      * @return void
      */
     public function disableOPCache($serverId)
@@ -271,25 +273,53 @@ trait ManagesServers
     }
 
     /**
-     * Upgrade to latest PHP version.
+     * Get the collection of PHP Versions.
      *
-     * @param $serverId
-     * @return void
+     * @param  int $serverId
+     * @return \Laravel\Forge\Resources\PHPVersion[]
      */
-    public function upgradePHP($serverId)
+    public function phpVersions($serverId)
     {
-        $this->post("servers/$serverId/php/upgrade");
+        return $this->transformCollection(
+            $this->get("servers/$serverId/php"),
+            PHPVersion::class
+        );
     }
 
     /**
-     * Get recent events
+     * Install a version of PHP.
      *
-     * @param $serverId
+     * @param  string  $serverId
+     * @param  string  $version
      * @return void
+     */
+    public function installPHP($serverId, $version)
+    {
+        $this->post("servers/$serverId/php", ['version' => $version]);
+    }
+
+    /**
+     * Patch the PHP version.
+     *
+     * @param  string  $serverId
+     * @param  string  $version
+     * @return void
+     */
+    public function updatePHP($serverId, $version)
+    {
+        $this->post("servers/$serverId/php/update", ['version' => $version]);
+    }
+
+    /**
+     * Get recent events.
+     *
+     * @param  string|null  $serverId
+     * @return \Laravel\Forge\Resources\Event[]
      */
     public function events($serverId = null)
     {
-        $endpoint = is_null($serverId) ? "servers/events" : "servers/events?server_id=" . $serverId;
+        $endpoint = is_null($serverId) ? 'servers/events' : 'servers/events?server_id='.$serverId;
+
         return $this->transformCollection(
             $this->get($endpoint),
             Event::class

@@ -1,20 +1,22 @@
 <?php
 
-namespace Themsaid\Forge\Resources;
+namespace Laravel\Forge\Resources;
+
+use Laravel\Forge\Forge;
 
 class BackupConfiguration extends Resource
 {
     /**
      * The id of the backup.
      *
-     * @var integer
+     * @var int
      */
     public $id;
 
     /**
      * The id of the server.
      *
-     * @var integer
+     * @var int
      */
     public $serverId;
 
@@ -33,21 +35,21 @@ class BackupConfiguration extends Resource
     public $time;
 
     /**
-     * The provider (s3 or spaces)
+     * The provider (s3 or spaces).
      *
-     * @var boolean
+     * @var bool
      */
     public $provider;
 
     /**
-     * The name for the provider
+     * The name for the provider.
      *
      * @var string
      */
     public $providerName;
 
     /**
-     * The last Backup time
+     * The last Backup time.
      *
      * @var string|null
      */
@@ -58,14 +60,14 @@ class BackupConfiguration extends Resource
      *
      * Note: this is only available when getting a single configuration.
      *
-     * @var \Themsaid\Forge\Resources\MysqlDatabase[]
+     * @var \Laravel\Forge\Resources\Database[]
      */
     public $databases;
 
     /**
-     * The databases for this backup
+     * The databases for this backup.
      *
-     * @var \Themsaid\Forge\Resources\Backup[]
+     * @var \Laravel\Forge\Resources\Backup[]
      */
     public $backups;
 
@@ -76,18 +78,25 @@ class BackupConfiguration extends Resource
      */
     public $createdAt;
 
-    public function __construct(array $attributes, $forge = null)
+    /**
+     * Create a new BackupConfiguration instance.
+     *
+     * @param  array  $attributes
+     * @param  \Laravel\Forge\Forge|null  $forge
+     * @return void
+     */
+    public function __construct(array $attributes, Forge $forge = null)
     {
         parent::__construct($attributes, $forge);
 
         $this->databases = $this->transformCollection(
             $this->databases ?: [],
-            MysqlDatabase::class,
+            Database::class,
             ['server_id' => $this->serverId]
         );
 
         $this->backups = $this->transformCollection(
-            $this->backups,
+            $this->backups ?: [],
             Backup::class,
             ['server_id' => $this->serverId]
         );
@@ -106,8 +115,7 @@ class BackupConfiguration extends Resource
     /**
      * Restore a backup for this configuration.
      *
-     * @param $backupId
-     *
+     * @param  int $backupId
      * @return void
      */
     public function restoreBackup($backupId)
@@ -118,8 +126,7 @@ class BackupConfiguration extends Resource
     /**
      * Delete the given backup.
      *
-     * @param $backupId
-     *
+     * @param  int  $backupId
      * @return void
      */
     public function deleteBackup($backupId)
