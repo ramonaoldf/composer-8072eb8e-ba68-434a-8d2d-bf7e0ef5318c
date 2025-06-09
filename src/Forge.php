@@ -35,6 +35,13 @@ class Forge
     public $guzzle;
 
     /**
+     * Number of seconds a request is retried.
+     *
+     * @var int
+     */
+    public $timeout = 30;
+
+    /**
      * Create a new Forge instance.
      *
      * @param  string $apiKey
@@ -69,5 +76,28 @@ class Forge
         return array_map(function ($data) use ($class, $extraData) {
             return new $class($data + $extraData, $this);
         }, $collection);
+    }
+
+    /**
+     * Set a new timeout
+     *
+     * @param  int $timeout
+     * @return $this
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * Get the timeout
+     *
+     * @return  int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
     }
 }
