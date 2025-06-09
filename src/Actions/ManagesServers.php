@@ -328,4 +328,16 @@ trait ManagesServers
             Event::class
         );
     }
+
+    /**
+     * Get event details
+     *
+     * @param  string  $serverId
+     * @param  string  $eventId
+     * @return \Laravel\Forge\Resources\Event
+     */
+    public function event($serverId, $eventId)
+    {
+        return new Event($this->get("servers/$serverId/events/$eventId"), $this);
+    }
 }
