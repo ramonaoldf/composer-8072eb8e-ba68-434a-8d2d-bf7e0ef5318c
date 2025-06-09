@@ -2,7 +2,7 @@
 
 To install the SDK in your project you need to require the package via composer:
 
-```
+```bash
 composer require themsaid/forge-sdk
 ```
 
@@ -105,6 +105,9 @@ $server->installBlackfire(array $data);
 $server->removeBlackfire();
 $server->installPapertrail(array $data);
 $server->removePapertrail();
+$server->enableOPCache();
+$server->disableOPCache();
+$server->upgradePHP();
 ```
 
 ## Server SSH Keys
@@ -161,6 +164,13 @@ $forge->removeBlackfire($serverId);
 // Papertrail
 $forge->installPapertrail($serverId, array $data);
 $forge->removePapertrail($serverId);
+
+// OPCache
+$forge->enableOPCache($serverId);
+$forge->disableOPCache($serverId);
+
+// PHP
+$forge->upgradePHP($serverId);
 ```
 
 ## Server Daemons

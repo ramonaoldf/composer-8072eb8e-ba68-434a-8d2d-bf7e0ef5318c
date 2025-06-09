@@ -264,4 +264,34 @@ class Server extends Resource
     {
         return $this->forge->removePapertrail($this->id);
     }
+
+    /**
+     * Enable OPCache on the server.
+     *
+     * @return Server
+     */
+    public function enableOPCache()
+    {
+        return $this->forge->enableOPCache($this->id);
+    }
+
+    /**
+     * Disable OPCache on the server.
+     *
+     * @return Server
+     */
+    public function disableOPCache()
+    {
+        return $this->forge->disableOPCache($this->id);
+    }
+
+    /**
+     * Upgrade to latest PHP version.
+     *
+     * @return Server
+     */
+    public function upgradePHP()
+    {
+        return $this->forge->upgradePHP($this->id);
+    }
 }
