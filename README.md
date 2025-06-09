@@ -265,10 +265,6 @@ $forge->siteDeploymentLog($serverId, $siteId);
 // PHP Version
 $forge->changeSitePHPVersion($serverId, $siteId, $version);
 
-// Notifications
-$forge->enableHipchatNotifications($serverId, $siteId, array $data);
-$forge->disableHipchatNotifications($serverId, $siteId);
-
 // Installing Wordpress
 $forge->installWordPress($serverId, $siteId, array $data);
 $forge->removeWordPress($serverId, $siteId);
@@ -296,8 +292,6 @@ $site->disableQuickDeploy();
 $site->deploySite($wait = false);
 $site->resetDeploymentState();
 $site->siteDeploymentLog();
-$site->enableHipchatNotifications(array $data);
-$site->disableHipchatNotifications();
 $site->installWordPress($data);
 $site->removeWordPress();
 $site->installPhpMyAdmin($data);
@@ -454,6 +448,7 @@ $recipe->run(array $data);
 ```php
 $forge->backupConfigurations($serverId);
 $forge->createBackupConfiguration($serverId, array $data);
+$forge->updateBackupConfiguration($serverId, $backupConfigurationId, array $data);
 $forge->backupConfiguration($serverId, $backupConfigurationId);
 $forge->deleteBackupConfiguration($serverId, $backupConfigurationId);
 $forge->restoreBackup($serverId, $backupConfigurationId, $backupId);
@@ -464,6 +459,7 @@ On a `BackupConfiguration` instance you may also call:
 
 ```php
 $extendedConfig = $backupConfig->get(); // Load the databases also
+$backupConfig->update(array $data);
 $backupConfig->delete();
 $backupConfig->restoreBackup($backupId);
 $backupConfig->deleteBackup($backupId);
