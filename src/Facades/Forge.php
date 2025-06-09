@@ -100,6 +100,7 @@ use Laravel\Forge\ForgeManager;
  * @method static void installPHP(string $serverId, string $version)
  * @method static void updatePHP(string $serverId, string $version)
  * @method static \Laravel\Forge\Resources\Event[] events(string|null $serverId = null)
+ * @method static \Laravel\Forge\Resources\Event event(string $serverId, string $eventId)
  * @method static \Laravel\Forge\Resources\SiteCommand executeSiteCommand(int $serverId, int $siteId, array $data)
  * @method static \Laravel\Forge\Resources\SiteCommand listCommandHistory(int $serverId, int $siteId)
  * @method static \Laravel\Forge\Resources\SiteCommand getSiteCommand(int $serverId, int $siteId, int $commandId)

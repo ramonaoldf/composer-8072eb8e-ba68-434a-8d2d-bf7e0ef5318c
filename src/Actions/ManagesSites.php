@@ -485,4 +485,16 @@ trait ManagesSites
     {
         return $this->get("servers/$serverId/sites/$siteId/logs");
     }
+
+    /**
+     * Remove the given site's log when the log formatting is single.
+     *
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @return void
+     */
+    public function deleteSiteLog($serverId, $siteId)
+    {
+        return $this->delete("servers/$serverId/sites/$siteId/logs");
+    }
 }

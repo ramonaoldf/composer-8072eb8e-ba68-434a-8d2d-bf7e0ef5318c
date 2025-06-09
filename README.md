@@ -308,6 +308,7 @@ $site->installPhpMyAdmin($data);
 $site->removePhpMyAdmin();
 $site->changePHPVersion($version);
 $site->siteLog();
+$site->deleteSiteLog();
 ```
 
 ### Site Workers

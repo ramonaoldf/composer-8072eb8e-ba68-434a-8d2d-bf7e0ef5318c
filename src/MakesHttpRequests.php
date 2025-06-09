@@ -4,6 +4,7 @@ namespace Laravel\Forge;
 
 use Exception;
 use Laravel\Forge\Exceptions\FailedActionException;
+use Laravel\Forge\Exceptions\ForbiddenException;
 use Laravel\Forge\Exceptions\NotFoundException;
 use Laravel\Forge\Exceptions\RateLimitExceededException;
 use Laravel\Forge\Exceptions\TimeoutException;
@@ -91,6 +92,7 @@ trait MakesHttpRequests
      *
      * @throws \Exception
      * @throws \Laravel\Forge\Exceptions\FailedActionException
+     * @throws \Laravel\Forge\Exceptions\ForbiddenException
      * @throws \Laravel\Forge\Exceptions\NotFoundException
      * @throws \Laravel\Forge\Exceptions\ValidationException
      * @throws \Laravel\Forge\Exceptions\RateLimitExceededException
@@ -99,6 +101,10 @@ trait MakesHttpRequests
     {
         if ($response->getStatusCode() == 422) {
             throw new ValidationException(json_decode((string) $response->getBody(), true));
+        }
+
+        if ($response->getStatusCode() === 403) {
+            throw new ForbiddenException((string) $response->getBody());
         }
 
         if ($response->getStatusCode() == 404) {

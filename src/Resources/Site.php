@@ -475,4 +475,14 @@ class Site extends Resource
     {
         return $this->forge->siteLog($this->serverId, $this->id);
     }
+
+    /**
+     * Remove the log for this site.
+     *
+     * @return void
+     */
+    public function deleteSiteLog()
+    {
+        return $this->forge->deleteSiteLog($this->serverId, $this->id);
+    }
 }
