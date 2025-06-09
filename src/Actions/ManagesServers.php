@@ -45,17 +45,20 @@ trait ManagesServers
         $server = $response['server'];
         $initialSudoPassword = $response['sudo_password'] ?? null;
         $initialDatabasePassword = $response['database_password'] ?? null;
+        $initialMeilisearchPassword = $response['meilisearch_password'] ?? null;
         $initialProvisionCommand = $response['provision_command'] ?? null;
 
         $server['sudo_password'] = $initialSudoPassword;
         $server['database_password'] = $initialDatabasePassword;
+        $server['meilisearch_password'] = $initialMeilisearchPassword;
         $server['provision_command'] = $initialProvisionCommand;
 
         if ($wait) {
-            return $this->retry($timeout, function () use ($server, $initialSudoPassword, $initialDatabasePassword, $initialProvisionCommand) {
+            return $this->retry($timeout, function () use ($server, $initialSudoPassword, $initialDatabasePassword, $initialMeilisearchPassword, $initialProvisionCommand) {
                 $server = $this->server($server['id']);
                 $server->sudoPassword = $initialSudoPassword;
                 $server->databasePassword = $initialDatabasePassword;
+                $server->meilisearchPassword = $initialMeilisearchPassword;
                 $server->provisionCommand = $initialProvisionCommand;
 
                 return $server->isReady ? $server : null;
