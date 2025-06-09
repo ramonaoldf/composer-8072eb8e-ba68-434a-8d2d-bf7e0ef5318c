@@ -226,14 +226,14 @@ $forge->siteEnvironmentFile($serverId, $siteId);
 $forge->updateSiteEnvironmentFile($serverId, $siteId, $content);
 
 // Site Repositories and Deployments
-$forge->installGitRepositoryOnSite($serverId, $siteId, array $data);
+$forge->installGitRepositoryOnSite($serverId, $siteId, array $data, $wait = false);
 $forge->updateSiteGitRepository($serverId, $siteId, array $data);
-$forge->destroySiteGitRepository($serverId, $siteId);
+$forge->destroySiteGitRepository($serverId, $siteId, $wait = false);
 $forge->siteDeploymentScript($serverId, $siteId);
 $forge->updateSiteDeploymentScript($serverId, $siteId, $content);
 $forge->enableQuickDeploy($serverId, $siteId);
 $forge->disableQuickDeploy($serverId, $siteId);
-$forge->deploySite($serverId, $siteId);
+$forge->deploySite($serverId, $siteId, $wait = false);
 $forge->resetDeploymentState($serverId, $siteId);
 $forge->siteDeploymentLog($serverId, $siteId);
 
@@ -254,14 +254,14 @@ On a Site Instance you may also call:
 ```php
 $site->refreshToken();
 $site->delete();
-$site->installGitRepository(array $data);
+$site->installGitRepository(array $data, $wait = false);
 $site->updateGitRepository(array $data);
-$site->destroyGitRepository();
+$site->destroyGitRepository($wait = false);
 $site->getDeploymentScript();
 $site->updateDeploymentScript($content);
 $site->enableQuickDeploy();
 $site->disableQuickDeploy();
-$site->deploySite();
+$site->deploySite($wait = false);
 $site->enableHipchatNotifications(array $data);
 $site->disableHipchatNotifications();
 $site->installWordPress($data);
@@ -357,4 +357,13 @@ On a Recipe Instance you may also call:
 $recipe->update(array $data);
 $recipe->delete();
 $recipe->run(array $data);
+```
+
+
+## Testing
+
+Run the tests with:
+
+``` bash
+vendor/bin/phpunit
 ```
