@@ -216,6 +216,30 @@ trait ManagesSites
     }
 
     /**
+     * Create a new deploy key on the site.
+     *
+     * @param  int  $serverId
+     * @param  int  $siteId
+     * @return array
+     */
+    public function createSiteDeployKey($serverId, $siteId)
+    {
+        return $this->post("servers/$serverId/sites/$siteId/deploy-key");
+    }
+
+    /**
+     * Destroy the deploy key on the site.
+     *
+     * @param mixed $serverId
+     * @param mixed $siteId
+     * @return void
+     */
+    public function destroySiteDeployKey($serverId, $siteId)
+    {
+        $this->delete("servers/$serverId/sites/$siteId/deploy-key");
+    }
+
+    /**
      * Get the content of the site's deployment script.
      *
      * @param  int  $serverId
