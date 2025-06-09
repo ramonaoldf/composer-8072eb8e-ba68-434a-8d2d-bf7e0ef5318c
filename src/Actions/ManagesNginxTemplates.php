@@ -51,7 +51,6 @@ trait ManagesNginxTemplates
      * Create a new Nginx Template.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\NginxTemplate
      */
@@ -73,7 +72,6 @@ trait ManagesNginxTemplates
      *
      * @param  int  $serverId
      * @param  int  $templateId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\NginxTemplate
      */
     public function updateNginxTemplate($serverId, $templateId, array $data)

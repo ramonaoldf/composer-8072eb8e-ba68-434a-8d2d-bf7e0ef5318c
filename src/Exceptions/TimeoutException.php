@@ -16,7 +16,6 @@ class TimeoutException extends Exception
     /**
      * Create a new exception instance.
      *
-     * @param  array  $output
      * @return void
      */
     public function __construct(array $output)

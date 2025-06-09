@@ -27,7 +27,6 @@ trait MakesHttpRequests
      * Make a POST request to Forge servers and return the response.
      *
      * @param  string  $uri
-     * @param  array  $payload
      * @return mixed
      */
     public function post($uri, array $payload = [])
@@ -39,7 +38,6 @@ trait MakesHttpRequests
      * Make a PUT request to Forge servers and return the response.
      *
      * @param  string  $uri
-     * @param  array  $payload
      * @return mixed
      */
     public function put($uri, array $payload = [])
@@ -51,7 +49,6 @@ trait MakesHttpRequests
      * Make a DELETE request to Forge servers and return the response.
      *
      * @param  string  $uri
-     * @param  array  $payload
      * @return mixed
      */
     public function delete($uri, array $payload = [])
@@ -64,7 +61,6 @@ trait MakesHttpRequests
      *
      * @param  string  $verb
      * @param  string  $uri
-     * @param  array  $payload
      * @return mixed
      */
     protected function request($verb, $uri, array $payload = [])
@@ -91,7 +87,6 @@ trait MakesHttpRequests
     /**
      * Handle the request error.
      *
-     * @param  \Psr\Http\Message\ResponseInterface  $response
      * @return void
      *
      * @throws \Exception

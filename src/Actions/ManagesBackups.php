@@ -39,7 +39,6 @@ trait ManagesBackups
      * Create a new backup configuration.
      *
      * @param  string  $serverId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\BackupConfiguration
      */
     public function createBackupConfiguration($serverId, array $data)
@@ -54,7 +53,6 @@ trait ManagesBackups
      *
      * @param  int  $serverId
      * @param  int  $backupConfigurationId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\BackupConfiguration
      */
     public function updateBackupConfiguration($serverId, $backupConfigurationId, array $data)

@@ -39,7 +39,6 @@ trait ManagesJobs
      * Create a new job.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Job
      */

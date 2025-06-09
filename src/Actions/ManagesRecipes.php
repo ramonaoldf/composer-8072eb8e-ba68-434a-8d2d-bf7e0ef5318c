@@ -32,7 +32,6 @@ trait ManagesRecipes
     /**
      * Create a new recipe.
      *
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Recipe
      */
     public function createRecipe(array $data)
@@ -44,7 +43,6 @@ trait ManagesRecipes
      * Update the given recipe.
      *
      * @param  string  $recipeId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Recipe
      */
     public function updateRecipe($recipeId, array $data)
@@ -67,7 +65,6 @@ trait ManagesRecipes
      * Run the given recipe.
      *
      * @param  string  $recipeId
-     * @param  array  $data
      * @return void
      */
     public function runRecipe($recipeId, array $data)

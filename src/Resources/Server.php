@@ -140,7 +140,6 @@ class Server extends Resource
     /**
      * Update the given server.
      *
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Server
      */
     public function update(array $data)
@@ -261,7 +260,6 @@ class Server extends Resource
     /**
      * Reboot PHP on the server.
      *
-     * @param  array  $data
      * @return void
      */
     public function rebootPHP(array $data)
@@ -272,7 +270,6 @@ class Server extends Resource
     /**
      * Install Blackfire on the server.
      *
-     * @param  array  $data
      * @return void
      */
     public function installBlackfire(array $data)
@@ -293,7 +290,6 @@ class Server extends Resource
     /**
      * Install Papertrail on the server.
      *
-     * @param  array  $data
      * @return void
      */
     public function installPapertrail(array $data)

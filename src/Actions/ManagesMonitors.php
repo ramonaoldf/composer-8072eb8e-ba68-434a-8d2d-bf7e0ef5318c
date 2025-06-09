@@ -39,7 +39,6 @@ trait ManagesMonitors
      * Create a new monitor.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Monitor
      */
     public function createMonitor($serverId, array $data)

@@ -7,26 +7,26 @@ use Laravel\Forge\Resources\User;
 
 class Forge
 {
-    use MakesHttpRequests,
-        Actions\ManagesJobs,
-        Actions\ManagesSites,
-        Actions\ManagesServers,
-        Actions\ManagesDaemons,
-        Actions\ManagesWorkers,
-        Actions\ManagesSSHKeys,
-        Actions\ManagesRecipes,
-        Actions\ManagesBackups,
-        Actions\ManagesWebhooks,
-        Actions\ManagesDatabaseUsers,
-        Actions\ManagesCredentials,
+    use Actions\ManagesBackups,
         Actions\ManagesCertificates,
-        Actions\ManagesFirewallRules,
-        Actions\ManagesRedirectRules,
-        Actions\ManagesSecurityRules,
+        Actions\ManagesCredentials,
+        Actions\ManagesDaemons,
         Actions\ManagesDatabases,
+        Actions\ManagesDatabaseUsers,
+        Actions\ManagesFirewallRules,
+        Actions\ManagesJobs,
         Actions\ManagesMonitors,
         Actions\ManagesNginxTemplates,
-        Actions\ManagesSiteCommands;
+        Actions\ManagesRecipes,
+        Actions\ManagesRedirectRules,
+        Actions\ManagesSecurityRules,
+        Actions\ManagesServers,
+        Actions\ManagesSiteCommands,
+        Actions\ManagesSites,
+        Actions\ManagesSSHKeys,
+        Actions\ManagesWebhooks,
+        Actions\ManagesWorkers,
+        MakesHttpRequests;
 
     /**
      * The Forge API Key.
@@ -53,10 +53,9 @@ class Forge
      * Create a new Forge instance.
      *
      * @param  string|null  $apiKey
-     * @param  \GuzzleHttp\Client|null  $guzzle
      * @return void
      */
-    public function __construct($apiKey = null, HttpClient $guzzle = null)
+    public function __construct($apiKey = null, ?HttpClient $guzzle = null)
     {
         if (! is_null($apiKey)) {
             $this->setApiKey($apiKey, $guzzle);

@@ -39,7 +39,6 @@ trait ManagesDatabases
      * Create a new Database.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Database
      */
@@ -63,7 +62,6 @@ trait ManagesDatabases
      *
      * @param  int  $serverId
      * @param  int  $databaseId
-     * @param  array  $data
      * @return \Laravel\Forge\Resources\Database
      */
     public function updateDatabase($serverId, $databaseId, array $data)

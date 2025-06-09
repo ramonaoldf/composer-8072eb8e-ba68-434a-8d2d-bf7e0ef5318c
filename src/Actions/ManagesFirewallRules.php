@@ -39,7 +39,6 @@ trait ManagesFirewallRules
      * Create a new firewall rule.
      *
      * @param  int  $serverId
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\FirewallRule
      */

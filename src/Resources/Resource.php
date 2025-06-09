@@ -24,11 +24,9 @@ class Resource
     /**
      * Create a new resource instance.
      *
-     * @param  array  $attributes
-     * @param  \Laravel\Forge\Forge|null  $forge
      * @return void
      */
-    public function __construct(array $attributes, Forge $forge = null)
+    public function __construct(array $attributes, ?Forge $forge = null)
     {
         $this->attributes = $attributes;
         $this->forge = $forge;
@@ -72,9 +70,7 @@ class Resource
     /**
      * Transform the items of the collection to the given class.
      *
-     * @param  array  $collection
      * @param  string  $class
-     * @param  array  $extraData
      * @return array
      */
     protected function transformCollection(array $collection, $class, array $extraData = [])
@@ -87,7 +83,6 @@ class Resource
     /**
      * Transform the collection of tags to a string.
      *
-     * @param  array  $tags
      * @param  string|null  $separator
      * @return string
      */

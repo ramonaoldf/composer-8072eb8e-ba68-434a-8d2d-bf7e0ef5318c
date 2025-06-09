@@ -230,7 +230,6 @@ class Site extends Resource
     /**
      * Install a git repository on the given site.
      *
-     * @param  array  $data
      * @param  bool  $wait
      * @return \Laravel\Forge\Resources\Site
      */
@@ -242,7 +241,6 @@ class Site extends Resource
     /**
      * Update the site's git repository parameters.
      *
-     * @param  array  $data
      * @return void
      */
     public function updateGitRepository(array $data)
@@ -369,7 +367,6 @@ class Site extends Resource
     /**
      * Enable Hipchat Notifications for the given site.
      *
-     * @param  array  $data
      * @return void
      */
     public function enableHipchatNotifications(array $data)
@@ -390,7 +387,6 @@ class Site extends Resource
     /**
      * Install a new WordPress project.
      *
-     * @param  array  $data
      * @return void
      */
     public function installWordPress(array $data)
@@ -411,7 +407,6 @@ class Site extends Resource
     /**
      * Install a new phpMyAdmin project.
      *
-     * @param  array  $data
      * @return void
      */
     public function installPhpMyAdmin(array $data)
